@@ -13,10 +13,10 @@ data class Task(
     val taskId: Long = 0L,
 
     @ColumnInfo(name = "task_name")
-    val taskName: String = "",
+    var taskName: String = "",
 
     @ColumnInfo(name = "task_done")
-    val taskDone: Boolean = false
+    var taskDone: Boolean = false
 ) {
 
 }

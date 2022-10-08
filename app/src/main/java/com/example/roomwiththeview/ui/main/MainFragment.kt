@@ -5,12 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import com.example.roomwiththeview.databinding.FragmentMainBinding
-import com.example.roomwiththeview.model.TaskDAO
+import com.example.roomwiththeview.model.Task
 import com.example.roomwiththeview.model.TaskDatabase
 
 class MainFragment : Fragment() {
@@ -35,6 +32,12 @@ class MainFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        val adapter = TaskItemAdapter()
+        binding.recyclerView.adapter = adapter
+
+        viewModel.tasks.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         binding.saveTaskButton.setOnClickListener {
             viewModel.addTask(binding.taskEditText.text.toString())
